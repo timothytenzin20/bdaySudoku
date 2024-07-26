@@ -1,5 +1,4 @@
-import { Util } from "./Util.js";
-import React from 'react'
+// import { Util } from "./Util.js";
 
 // Helper function to shuffle an array
 function shuffle(array) {
@@ -10,30 +9,23 @@ function shuffle(array) {
     return array;
 }
 
-function isValid(board, row, col, num) {
-    for (let x = 0; x < 9; x++) {
-        if (board[row][x] === num || board[x][col] === num || 
-            board[3 * Math.floor(row / 3) + Math.floor(x / 3)][3 * Math.floor(col / 3) + x % 3] === num) {
-            return false;
-        }
-    }
-    return true;
-}
-
 function solveSudoku(board) {
     for (let row = 0; row < 9; row++) {
         for (let col = 0; col < 9; col++) {
             if (board[row][col] === 0) {
                 let numbers = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9]); // Shuffle numbers before trying
                 for (let num of numbers) {
+                    // Check if num being entered into row/column is valid
                     if (isValid(board, row, col, num)) {
                         board[row][col] = num;
+                        // Recursion to fill subgrids
                         if (solveSudoku(board)) {
                             return true;
                         }
                         board[row][col] = 0;
                     }
                 }
+                // Backtracking to see if config fails
                 return false;
             }
         }
@@ -41,7 +33,19 @@ function solveSudoku(board) {
     return true;
 }
 
+export function isValid(board, row, col, num) {
+    for (let i = 0; i < 9; i++) {
+        // Check row, column, and sub 3x3 grids if game rules broken (number already contained)
+        if (board[row][i] === num || board[i][col] === num || 
+            board[3 * Math.floor(row / 3) + Math.floor(i / 3)][3 * Math.floor(col / 3) + i % 3] === num) {
+            return false;
+        }
+    }
+    return true;
+}
+
 function generateSudoku() {
+    // 9 elements in the outer array, creates a new array of length 9 where all elements are initialized to 0.
     let board = Array.from({ length: 9 }, () => Array(9).fill(0));
     if (solveSudoku(board)) {
         return board;
@@ -55,6 +59,7 @@ function removeNumbers(board, count) {
     let clone = board.map(row => row.slice());
     let removed = 0;
     
+    // Until max reached, remove a random array entry, checking it hasn't already been removed
     while (removed < count) {
         let row = Math.floor(Math.random() * 9);
         let col = Math.floor(Math.random() * 9);
@@ -66,16 +71,5 @@ function removeNumbers(board, count) {
     return clone;
 }
 
-let completeBoard = generateSudoku();
-console.log("Complete Board:");
-Util.print2DArray(completeBoard);
-
-let sudokuWithMissingNumbers = removeNumbers(completeBoard, 20);
-console.log("Sudoku with Missing Numbers:");
-Util.print2DArray(sudokuWithMissingNumbers);
-
-console.log("Complete Board (After Removal):");
-Util.print2DArray(completeBoard);
-
-export default sudokuWithMissingNumbers;
-
+export const completeBoard = generateSudoku();
+export const sudokuWithMissingNumbers = removeNumbers(completeBoard, 20);

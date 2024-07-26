@@ -3,7 +3,6 @@ import { sudokuWithMissingNumbers, completeBoard } from './sudoku.js';
 import { isValid } from './sudoku.js';
 import Counter from './counter.jsx'; // Import the Counter component
 import './gameBoard.css';
-import popup from './popup.js';
 
 // yea idk wtf chat cooked here but chat cooked
 function SudokuBoard() {

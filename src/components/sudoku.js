@@ -1,4 +1,5 @@
 import { Util } from "./Util.js";
+import React from 'react'
 
 // Helper function to shuffle an array
 function shuffle(array) {
@@ -75,3 +76,6 @@ Util.print2DArray(sudokuWithMissingNumbers);
 
 console.log("Complete Board (After Removal):");
 Util.print2DArray(completeBoard);
+
+export default sudokuWithMissingNumbers;
+

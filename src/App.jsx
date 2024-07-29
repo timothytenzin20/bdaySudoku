@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import SudokuBoard from './components/gameBoard';
-import popup from './components/popup.jsx';
+import Popup from './components/popup.jsx';
 
 function App() {
+  const [buttonPopup, setButtonPopup] = useState(false);
   return (
     <div className='App'>
       <main>
         <h1> Stardoku </h1>
-        <SudokuBoard />
-        <popup trigger = {false}> 
-          <h3>yooo</h3>
-        </popup>
+        <SudokuBoard>
+         
+        </SudokuBoard> 
+        <button onClick={() => setButtonPopup(true)}>Open</button>
+        <Popup trigger = {buttonPopup} setTrigger={setButtonPopup}> 
+              <h3>yooo</h3>
+              <p> balls </p>
+        </Popup>
       </main>
     </div>
   )

@@ -92,36 +92,33 @@ function SudokuBoard({ onCountChange }) {
   };
 
   return (
-    <div>
-      <Counter count={countRemainingCells()} /> {/* Display the counter */}
-      {board.map((row, rowIndex) => (
-        <div key={rowIndex} style={{ display: 'flex' }}>
-          {row.map((cell, cellIndex) => {
-            const isIncorrect = incorrectCells[rowIndex][cellIndex];
-
-            return (
-              <input
-                key={cellIndex}
-                type="number"
-                min="1"
-                max="9"
-                value={cell === 0 ? '' : cell}
-                onChange={(e) => handleChange(rowIndex, cellIndex, e)}
-                disabled={correctBoard[rowIndex][cellIndex] !== null}
-                style={{
-                  width: 30,
-                  height: 30,
-                  border: '1px solid black',
-                  textAlign: 'center',
-                  fontSize: '16px',
-                  backgroundColor: cell === 0 ? 'white' : 'lightgrey',
-                  color: isIncorrect ? 'red' : 'black' // Style for incorrect numbers
-                }}
-              />
-            );
-          })}
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="text-center">
+        <Counter count={countRemainingCells()} /> {/* Display the counter */}
+        <div className="grid grid-cols-9 gap-0 border-4 border-black">
+          {board.map((row, rowIndex) => (
+            row.map((cell, cellIndex) => {
+              const isIncorrect = incorrectCells[rowIndex][cellIndex];
+              const isTopBorder = rowIndex % 3 === 0 ? 'border-t-4' : 'border-t';
+              const isBottomBorder = rowIndex % 3 === 2 ? 'border-b-4' : 'border-b';
+              const isLeftBorder = cellIndex % 3 === 0 ? 'border-l-4' : 'border-l';
+              const isRightBorder = cellIndex % 3 === 2 ? 'border-r-4' : 'border-r';
+              return (
+                <input
+                  key={cellIndex}
+                  type="number"
+                  min="1"
+                  max="9"
+                  value={cell === 0 ? '' : cell}
+                  onChange={(e) => handleChange(rowIndex, cellIndex, e)}
+                  disabled={correctBoard[rowIndex][cellIndex] !== null}
+                  className={`w-12 h-12 ${isTopBorder} ${isBottomBorder} ${isLeftBorder} ${isRightBorder} border-black text-center text-lg ${isIncorrect ? 'text-red-500' : 'text-black'} ${cell === 0 ? 'bg-white' : 'bg-gray-200'}`}
+                />
+              );
+            })
+          ))}
         </div>
-      ))}
+      </div>
     </div>
   );
 }

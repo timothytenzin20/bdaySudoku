@@ -1,0 +1,13 @@
+/* GiftButton.css */
+  @keyframes spinEndlessly {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  .animate-gift {
+    animation: giftAnimation 1s infinite;
+  }
+  
+  .spin-on-hover:hover {
+    animation: spinEndlessly 1s linear infinite;
+  }

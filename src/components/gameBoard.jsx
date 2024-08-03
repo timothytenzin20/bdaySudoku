@@ -12,7 +12,8 @@ function SudokuBoard({ onCountChange }) {
     const remainingCells = countRemainingCells();
     const incorrectCount = countIncorrectCells();
     onCountChange(remainingCells, incorrectCount);
-  }, [board, onCountChange]);
+    sessionStorage.setItem('remainingCellsCount', remainingCells);
+  }, [board, correctBoard, incorrectCells, onCountChange]);
 
   const handleChange = (rowIndex, cellIndex, event) => {
     const inputValue = event.target.value;
@@ -67,7 +68,6 @@ function SudokuBoard({ onCountChange }) {
     }
   };
 
-  // Count remaining cells based on whether they are correct
   const countRemainingCells = () => {
     let count = 0;
     board.forEach((row, rIdx) => {
@@ -80,7 +80,6 @@ function SudokuBoard({ onCountChange }) {
     return count;
   };
 
-  // Count incorrect cells
   const countIncorrectCells = () => {
     let count = 0;
     incorrectCells.forEach(row => {
@@ -105,7 +104,7 @@ function SudokuBoard({ onCountChange }) {
               const isRightBorder = cellIndex % 3 === 2 ? 'border-r-4' : 'border-r';
               return (
                 <input
-                  key={cellIndex}
+                  key={`${rowIndex}-${cellIndex}`}
                   type="number"
                   min="1"
                   max="9"

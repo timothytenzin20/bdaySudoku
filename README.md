@@ -1,8 +1,11 @@
-# React + Vite
+Custom Sudoku Board intended to act as birthday gift/card.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Features include:
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- randomly generated game board with missing values
+- ability to enter numbers
+- indiciation of incorrect and correct numbers
+- count of remaining numbers
+- popup upon correct value input
+- open and close buttons
+- charli xcx brat themed for recipient
